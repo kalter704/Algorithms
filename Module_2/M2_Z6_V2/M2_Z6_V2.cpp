@@ -1,7 +1,13 @@
-#include <cstdio>
-#include <fstream>
+// 6_2. LSD для long long.
+// Дан массив неотрицательных целых 64-разрядных чисел. Количество чисел не больше 106. 
+// Отсортировать массив методом поразрядной сортировки LSD по байтам.
 
-const size_t RANGE = 256 * 2 + 1;
+// метод digitByte из числа num добывает байт заданный в radix. 
+// А остальное как в стондартной сортировке llsd_sort
+
+#include <cstdio>
+
+const size_t RANGE = 257;
 
 template <typename data_t>
 void printVector(data_t *vector, size_t size) {
@@ -25,40 +31,20 @@ int digitByte(long long num, int radix) {
 
 void lsdCounting(long long* mas, size_t n, int radix) {
 	long long count[RANGE] = {0};
-	/*
-	for(int i = 0; i < RANGE; ++i) {
-		printf("%lld\n", count[i]);
-	}
-	*/
 	long long t_mas[n];
 	size_t i;
 	for(i = 0; i < n; ++i) {
-		if(mas[i] >= 0) {
-			++count[257 + digitByte(mas[i], radix) + 1];
-		} else {
-			++count[digitByte(mas[i], radix) + 1];
-		}
-		//++count[digitByte(mas[i], radix) + 1];
+		++count[digitByte(mas[i], radix) + 1];
 	}
-	//printVector(mas, n);
-	//printVector(count, RANGE);
 	for(i = 1; i < RANGE; ++i) {
 		count[i] += count[i - 1];
 	}
-	//printVector(count, RANGE);
 	for(i = 0; i < n; ++i) {
-		if(mas[i] >= 0) {
-			t_mas[count[257 + digitByte(mas[i], radix)]++] = mas[i];
-		} else {
-			t_mas[count[digitByte(mas[i], radix)]++] = mas[i];
-		}
-		//t_mas[count[digitByte(mas[i], radix)]++] = mas[i];
+		t_mas[count[digitByte(mas[i], radix)]++] = mas[i];
 	}
-	//printVector(t_mas, n);
 	for(i = 0; i < n; ++i) {
 		mas[i] = t_mas[i];
 	}
-	printVector(mas, n);
 }
 
 void lsdSort(long long* mas, size_t n) {
@@ -68,40 +54,12 @@ void lsdSort(long long* mas, size_t n) {
 }
 
 int main() {
-	//printf("%lld\n", digitByte(6513871986154684687ll, 7));
-	//long long mas[] = {12ll, 45ll, 10ll, 50ll, 1ll};
-	//int n = 5;
-	/*
-	printVector(mas, n);
-	printf("\n\n");
-	lsdCounting(mas, n, 0);
-	printVector(mas, n);
-	*/
-	/*
-	printVector(mas, n);
-	printf("\n\n");
-	lsdSort(mas, n);
-	printVector(mas, n);
-	*/
-	std::ifstream f("in.txt");
-	size_t size = 0;
-	f >> size;
-	long long* mas = new long long[size];
-	for(size_t i = 0; i < size; ++i) {
-		f >> mas[i];
-	}
-	for(size_t i = 0; i < size; ++i) {
-		printf("%lld\n", mas[i]);
-	}
-	printf("\n");
-	/*
 	size_t size = 0;
 	scanf("%d", &size);
 	long long* mas = new long long[size];
 	for(size_t i = 0; i < size; ++i) {
 		scanf("%lld", &mas[i]);
 	}
-	*/
 	lsdSort(mas, size);
 	for(size_t i = 0; i < size; ++i) {
 		printf("%lld\n", mas[i]);
