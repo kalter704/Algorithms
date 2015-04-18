@@ -1,6 +1,3 @@
-// ËÓקרוו גנולÿ: 7,952
-
-//#include <cstdio>
 #include "stdio.h"
 #include <cstdlib>
 #include <algorithm>
@@ -59,47 +56,12 @@ size_t split(data_t *mas, size_t n, less_t &less) {
 	return i;
 }
 
-//template <typename data_t, typename less_t>
-//size_t choice_pivot(data_t *mas, size_t n, less_t &less) {
-//	//data_t sec_mas[n];
-////	for(size_t i = 0; i < n; ++i) {
-////		sec_mas[i] = mas[i];
-////	} 
-//	for(size_t i = 0; i < n; i += 5) {
-//		if(i + 5 <= n) {
-//			ins_sort(&mas[i], &mas[i + 5], less);
-//		} else {
-//			ins_sort(&mas[i], &mas[n], less);
-//		}
-//	}
-//	for(data_t i = 2; i < n; i += 5) {
-//    data_t temp = mas[i];
-//    data_t j = i;
-//    for( ; j > 2 && less(temp, mas[j - 5]); j -= 5) {
-//      mas[j] = mas[j - 5];
-//    }
-//    mas[j] = temp;
-//  }
-////	size_t t_size = n / 5 + 1;
-////	data_t t_mas[t_size];
-////	for(size_t i = 0, j = 2; j < n; ++i, j += 5) {
-////		t_mas[i] = mas[j];
-////	}
-////	ins_sort(&t_mas[0], &t_mas[t_size], less);
-////	size_t med_elem = t_mas[t_size / 2];
-////	size_t i = 0;
-////	for( ; med_elem != mas[i]; ++i) {}
-//	return 2 + 5*((n / 5 + 1) / 2);
-//}
-
 template <typename data_t, typename less_t>
 void quick_sort(data_t *mas, size_t n, less_t &less) {
-	if(n < 25) {                           ///////////////////////////  Íאהמ ןנמגונטעü!!!!!!!!!! 25
+	if(n < 25) {                          
 		ins_sort(&mas[0], &mas[n], less);
 		return;	
 	}
-	//size_t index = choice_pivot(mas, n, less);
-	//swap(mas[index], mas[n - 1]);
 	swap(mas[rand() % n], mas[n - 1]);
 	size_t pivot = split(mas, n, less);
 	quick_sort(&mas[0], pivot, less);
@@ -120,7 +82,6 @@ void growMas(my_type** mas, long long &size) {
 int main() {
 	srand(77);
 	unsigned int n;
-	//scanf("%d", &n);
 	my_type *mas = new my_type[START_SIZE];
 	long long size = START_SIZE;
 	long long real_size = 0;
@@ -140,10 +101,6 @@ int main() {
 	for(i = 9; i < real_size; i += 10) {
 		printf("%d ", mas[i]);
 	}
-//	for(int i = 0; i < real_size; ++i) {
-//		printf("%d ", mas[i]);
-//	}
-	//printf("%d", mas[k]);
 	delete[] mas;
 	
 	return 0;
