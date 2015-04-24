@@ -20,25 +20,10 @@
 #include <cstdio>
 #include <iterator>
 
-#include <iostream>
-
-
 struct Dates_Of_Life {
   int date; 
   bool born;
 };
-
-void print_vector_dates(Dates_Of_Life* mas, size_t n) {
-	for(size_t i = 0; i < n; ++i) {
-		//printf("%d %d\n", mas->date, mas->born);
-		std::cout << mas[i].date << ' ';
-		if(mas[i].born) {
-			std::cout << "True" << std::endl;
-		} else {
-			std::cout << "False" << std::endl;
-		}
-	}
-}
 
 template <typename data_t>
 void swap(data_t &lhs, data_t &rhs) {
@@ -150,18 +135,8 @@ int main() {
 	}
 	num = count_dates;
 	
-	/*
-	std::cout << std::endl << "Before sorting:" << std::endl;
-	print_vector_dates(dates, num);
-	*/
-	
 	merge_sort(&dates[0], &dates[num], less_dates);
 	int contemp = count_contemp(dates, num);
-	
-	/*
-	std::cout << std::endl << "After sorting:" << std::endl;
-	print_vector_dates(dates, num);
-	*/
 	
 	printf("%d", contemp);
 	delete[] dates;
