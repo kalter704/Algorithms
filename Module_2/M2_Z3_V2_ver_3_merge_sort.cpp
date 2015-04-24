@@ -20,11 +20,25 @@
 #include <cstdio>
 #include <iterator>
 
+#include <iostream>
+
 
 struct Dates_Of_Life {
   int date; 
   bool born;
 };
+
+void print_vector_dates(Dates_Of_Life* mas, size_t n) {
+	for(size_t i = 0; i < n; ++i) {
+		//printf("%d %d\n", mas->date, mas->born);
+		std::cout << mas[i].date << ' ';
+		if(mas[i].born) {
+			std::cout << "True" << std::endl;
+		} else {
+			std::cout << "False" << std::endl;
+		}
+	}
+}
 
 template <typename data_t>
 void swap(data_t &lhs, data_t &rhs) {
@@ -122,35 +136,6 @@ int main() {
 		YYYY_b += 18;
 		struct Dates_Of_Life date_b = {YYYY_b * 10000 + MM_b * 100 + DD_b, true};
 		scanf("%d %d %d", &DD_d, &MM_d, &YYYY_d);
-		/*
-		if(DD_d != 1) {
-			DD_d--;
-		} else if(MM_d != 1) {
-			MM_d--;
-			// DD_d =  в зависимости от мес€ца
-			switch(MM_d) {
-				case 2:
-					DD_d = 28;
-					break;
-				case 1:
-				case 3:
-				case 5:
-				case 7:
-				case 8:
-				case 10:
-				case 12:
-					DD_d = 31;
-					break;
-				default:
-					DD_d = 30;
-					break;
-			}
-		} else {
-			YYYY_d--;
-			MM_d = 12;
-			DD_d = 31;
-		}
-		*/
 		struct Dates_Of_Life date_d = {YYYY_d * 10000 + MM_d * 100 + DD_d, false};
 		if(date_b.date >= date_d.date) {
 			continue;
@@ -159,13 +144,25 @@ int main() {
 		if(date_eighty < date_d.date) {
 			date_d.date = date_eighty;
 		}
-		date_d.date--;
-		dates[count_dates++] = date_b;
+		//date_d.date--;
 		dates[count_dates++] = date_d;
+		dates[count_dates++] = date_b;
 	}
 	num = count_dates;
+	
+	/*
+	std::cout << std::endl << "Before sorting:" << std::endl;
+	print_vector_dates(dates, num);
+	*/
+	
 	merge_sort(&dates[0], &dates[num], less_dates);
 	int contemp = count_contemp(dates, num);
+	
+	/*
+	std::cout << std::endl << "After sorting:" << std::endl;
+	print_vector_dates(dates, num);
+	*/
+	
 	printf("%d", contemp);
 	delete[] dates;
   return 0; 
