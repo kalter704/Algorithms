@@ -129,7 +129,6 @@ int main() {
 		if(date_eighty < date_d.date) {
 			date_d.date = date_eighty;
 		}
-		//date_d.date--;
 		dates[count_dates++] = date_d;
 		dates[count_dates++] = date_b;
 	}
